@@ -18,6 +18,8 @@ export default async (req, res) => {
   } catch (error) {
     res.json({ error: "A user with that username already exists 😮" });
     return;
+  } finally{
+    await prisma.$disconnect()
   }
   const token = jwt.sign(
     { username: user.username, id: user.id, time: new Date() },
